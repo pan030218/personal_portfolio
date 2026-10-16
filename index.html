@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="zh-CN" data-page-node-id="5gMEYdJseQz3Bc7xVUv4Wk">
+<head data-page-node-id="xJfeABZFqYO2We3lFwYqc4">
+<meta charset="utf-8" data-page-node-id="9EjHc1GgZHyxBlvdDsY7Jy">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" data-page-node-id="YwGusPowAUzCdcfSitmgZq">
+<meta name="theme-color" content="#0a0d12" data-page-node-id="xmgd7PyzeKg4s2ALP4mE2t">
+<title>个人作品集 — 技术探索与实践</title>
+<meta name="description" content="个人作品集：记录计算机视觉、智能感知与嵌入式物联网方向的项目实践与学习探索。" data-page-node-id="dvRj7fBgo6nLeLhgdEXBO3">
+<link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="ey3CUuZbY668LCEZLnJ0x8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-page-node-id="TAkkLPaazF6BCKAG8wQxWq">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=block" data-page-node-id="P6uDz50f7uFw4H4PmuCiNp">
+<script>document.documentElement.classList.add('anim');</script>
+<style>
+/* ══════════════════════════════════════════════════════════════
+   TOKENS — 1560 × 1008 reference frame, 1 unit (--u) = 1 reference px
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --font-text: Inter, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: Inter, var(--font-text);
+
+  --u: min(0.06410256vw, 0.12400794vh);
+  --vu: 0.09920635vh;
+  --inset-top: 41; --inset-bottom: 106;
+
+  /* nav */
+  --brand-x:225; --brand-y:45; --mark:34; --brand-gap:12; --brand-fs:18.49;
+  --links-y:50.5; --links-gap:50; --links-fs:21.69;
+  --cta-x:1195; --cta-y:42; --cta-w:140; --cta-h:43; --cta-r:12; --cta-fs:15.70; --cta-dy:2;
+
+  /* hero */
+  --h1-y:323; --h1-fs:36.25; --display-ls:0.0018em;
+  --nav-ls:-0.0115em; --brand-ls:-0.0154em; --cta-ls:-0.0127em; --body-ls:0.007em;
+  --label-ls:normal; --model-ls:normal; --proof-ls:0.0065em;
+  --w-regular:400; --w-display-wght:410; --w-medium:500; --w-semibold:600;
+  --w-display:var(--w-display-wght); --w-nav:400; --w-brand:500; --w-cta:520;
+  --w-body:var(--w-regular); --w-label:var(--w-medium);
+  --w-proof:480;
+  /* 子页面面板 / 联系卡片圆角 */
+  --card-r:26;
+
+
+  /* footer */
+  --by-y:799; --by-fs:14.01; --logo-y:867; --logo-gap:62;
+
+  /* motion */
+  --e-primary: cubic-bezier(.16,1,.3,1);
+  --e-soft:    cubic-bezier(.22,1,.36,1);
+
+  /* accent */
+  --accent:#F4A47A;
+}
+@supports (height: 100dvh){
+  :root{ --u: min(0.06410256vw, 0.12400794dvh); --vu: 0.09920635dvh; }
+}
+@media (min-width:1561px){ :root{ --inset-top:27; --inset-bottom:74; } }
+
+/* ══════════════════════════ RESET ══════════════════════════ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+button,input,textarea{ font:inherit; color:inherit; background:none; border:0 }
+img,svg{ display:block }
+a{ color:inherit; text-decoration:none }
+html,body{ height:100% }
+body{
+  overflow:hidden;
+  background:#0a0d12;
+  color:#fff;
+  font-family:var(--font-text);
+  font-size:16px;
+  font-synthesis:none;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+}
+:focus-visible{ outline:2px solid #F8B285; outline-offset:3px; border-radius:4px }
+/* hash 导航会把焦点落到目标 section 上，非交互容器不显示焦点环 */
+.view:focus, .view:focus-visible{ outline:none }
+
+/* ══════════════════════════ STAGE ══════════════════════════ */
+.stage{ position:fixed; inset:0; overflow:hidden; background:#0a0d12 }
+.stage-video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+
+/* ══════════════════════════ FRAME ══════════════════════════ */
+.frame{
+  position:absolute; inset:0; z-index:1;
+  display:flex; flex-direction:column;
+  padding: calc(var(--inset-top)*var(--vu)) calc(225*var(--u)) calc(var(--inset-bottom)*var(--vu));
+}
+.menu-toggle{ position:absolute; width:0; height:0; opacity:0; pointer-events:none }
+
+/* ══════════════════════════ NAV ══════════════════════════ */
+.nav{
+  position:relative; flex:none;
+  height: calc(43*var(--u));
+  display:flex; align-items:center; justify-content:space-between;
+}
+
+/* brand */
+.brand{
+  display:flex; align-items:center;
+  gap: calc(var(--brand-gap)*var(--u));
+  font-size: calc(var(--brand-fs)*var(--u));
+  font-weight: var(--w-brand);
+  letter-spacing: var(--brand-ls);
+  color:#fff;
+  text-shadow: 0 calc(1*var(--u)) calc(10*var(--u)) rgba(0,0,0,.30);
+}
+.brand .mark{ width:calc(var(--mark)*var(--u)); height:calc(var(--mark)*var(--u)); flex:none }
+.brand .brand-txt{ display:inline-block; transform:translateY(calc(1*var(--u))) }
+
+/* centered links */
+.links{
+  position:absolute; left:50%; transform:translateX(-50%);
+  top: calc((50.5 - 41)*var(--u));
+  display:flex; align-items:center;
+  gap: calc(var(--links-gap)*var(--u));
+  font-size: calc(var(--links-fs)*var(--u));
+  font-weight: var(--w-nav);
+  letter-spacing: var(--nav-ls);
+  line-height:1.2;
+  color:#fff;
+  text-shadow: 0 calc(1*var(--u)) calc(12*var(--u)) rgba(0,0,0,.32);
+}
+.links a{ transition:opacity .18s ease, color .18s ease }
+.links a:hover{ opacity:.72 }
+.links a.active{ color:var(--accent) }
+
+/* CTA */
+.cta{
+  align-self:flex-start;
+  margin-top: calc((42 - 41)*var(--u));
+  width: calc(var(--cta-w)*var(--u));
+  height: calc(var(--cta-h)*var(--u));
+  border-radius: calc(var(--cta-r)*var(--u));
+  display:flex; align-items:center; justify-content:center;
+  font-size: calc(var(--cta-fs)*var(--u));
+  font-weight: var(--w-cta);
+  letter-spacing: var(--cta-ls);
+  color:#fff;
+  background: linear-gradient(180deg, #3d3d3f 0%, #1d1d20 100%);
+  box-shadow: inset 0 calc(1*var(--u)) 0 rgba(255,255,255,.10), 0 calc(2*var(--u)) calc(14*var(--u)) rgba(0,0,0,.28);
+  cursor:pointer;
+  transition: filter .18s ease;
+}
+.cta span{ transform:translateY(calc(var(--cta-dy)*var(--u))) }
+.cta:hover{ filter:brightness(1.16) }
+.cta:active{ transform:translateY(1px) }
+
+/* burger (compact only) */
+.burger{
+  display:none;
+  width:38px; height:38px; border-radius:11px;
+  background:rgba(255,255,255,.10);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+  cursor:pointer;
+  place-items:center;
+  flex:none;
+}
+.burger span{ display:block; width:17px; height:1.6px; border-radius:2px; background:#fff; margin:2.6px auto }
+
+/* ══════════════════════════ SHEET (mobile menu) ══════════════════════════ */
+.sheet{ display:none }
+
+/* ══════════════════════════ PAGES ══════════════════════════ */
+.pages{ position:relative; flex:1 1 auto; min-height:0 }
+.view{ position:absolute; inset:0; display:none; flex-direction:column }
+.view.active,
+.view:target{ display:flex }
+
+/* ---- HOME / HERO ---- */
+/* 首页只有大标题：让 home 视图直接锚定到视口（fixed inset:0）做居中，
+   于是标题落在真正的**屏幕正中**，与导航/页脚高度无关，任何断点都成立。
+   z-index:-1 让它在 .frame 的层叠上下文里排在导航/页脚之下（不挡点击）。 */
+#view-home{
+  position:fixed; inset:0; z-index:-1;
+  align-items:center; justify-content:center;
+}
+.h1{
+  font-family:var(--font-display);
+  font-size: calc(var(--h1-fs)*var(--u));
+  font-weight: var(--w-display);
+  font-variation-settings:"opsz" 32;
+  line-height:1.10;
+  letter-spacing: var(--display-ls);
+  color:#fff;
+  text-align:center;
+  white-space:nowrap;
+  text-shadow: 0 calc(2*var(--u)) calc(22*var(--u)) rgba(0,0,0,.30);
+}
+
+
+/* ---- FOOTER PROOF ---- */
+.proof{
+  flex:none;
+  display:flex; flex-direction:column; align-items:center;
+  gap: calc(52.3*var(--vu));
+}
+.proof-cap{
+  font-family:var(--font-display);
+  font-size: calc(var(--by-fs)*var(--u));
+  font-weight: var(--w-proof);
+  font-variation-settings:"opsz" 32;
+  letter-spacing: var(--proof-ls);
+  line-height:1.12;
+  color: rgba(255,255,255,.95);
+  text-align:center;
+  text-shadow: 0 calc(1*var(--u)) calc(12*var(--u)) rgba(0,0,0,.35);
+}
+.proof-logos{ display:flex; align-items:center; gap: calc(var(--logo-gap)*var(--u)) }
+/* 盒高 35u（= 902 − 867），与参考稿 --logo-y 对齐 */
+.logo{
+  width: calc(var(--lw)*var(--u));
+  height: auto;
+  fill:#fff;
+  filter: drop-shadow(0 calc(1*var(--u)) calc(10*var(--u)) rgba(0,0,0,.30));
+}
+
+/* ══════════════════════════ SUB PAGES ══════════════════════════ */
+.view.page{
+  overflow-y:auto; overflow-x:hidden;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color: rgba(255,255,255,.20) transparent;
+}
+.page-inner{
+  width:100%;
+  margin-block:auto;
+  display:flex; flex-direction:column;
+  gap: calc(26*var(--u));
+}
+.page-head{ display:flex; flex-direction:column; gap: calc(9*var(--u)) }
+.kicker{
+  font-size: max(9.5px, calc(9.6*var(--u)));
+  font-weight: var(--w-medium);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color: rgba(255,255,255,.62);
+  text-shadow: 0 calc(1*var(--u)) calc(10*var(--u)) rgba(0,0,0,.40);
+}
+.page-title{
+  font-family:var(--font-display);
+  font-size: max(21px, calc(30*var(--u)));
+  font-weight: var(--w-display);
+  font-variation-settings:"opsz" 32;
+  line-height:1.16;
+  letter-spacing:-.008em;
+  color:#fff;
+  text-shadow: 0 calc(2*var(--u)) calc(20*var(--u)) rgba(0,0,0,.30);
+}
+.page-lead{
+  font-size: max(12.5px, calc(12.6*var(--u)));
+  line-height:1.7;
+  letter-spacing: var(--body-ls);
+  color: rgba(255,255,255,.70);
+  max-width: calc(820*var(--u));
+  text-shadow: 0 calc(1*var(--u)) calc(10*var(--u)) rgba(0,0,0,.34);
+}
+.panel{
+  background: rgba(28,29,32,.72);
+  -webkit-backdrop-filter: blur(calc(26*var(--u))) saturate(112%);
+  backdrop-filter: blur(calc(26*var(--u))) saturate(112%);
+  border-radius: calc(var(--card-r)*var(--u));
+  box-shadow: inset 0 0 0 1px rgba(214,228,255,.13), 0 calc(18*var(--u)) calc(48*var(--u)) rgba(0,0,0,.28);
+  padding: calc(24*var(--u)) calc(26*var(--u));
+}
+.body{
+  font-size: max(12.5px, calc(12.6*var(--u)));
+  line-height:1.78;
+  letter-spacing: var(--body-ls);
+  color: rgba(255,255,255,.82);
+  text-shadow: 0 calc(1*var(--u)) calc(8*var(--u)) rgba(0,0,0,.32);
+}
+.body + .body{ margin-top: calc(13*var(--u)) }
+
+.tag-row{ display:flex; flex-wrap:wrap; gap: calc(6*var(--u)); margin-top: calc(18*var(--u)) }
+.tag{
+  display:inline-flex; align-items:center;
+  height: max(24px, calc(24*var(--u)));
+  padding: 0 max(9px, calc(11*var(--u)));
+  border-radius: calc(8*var(--u));
+  font-size: max(10px, calc(10*var(--u)));
+  font-weight: var(--w-medium);
+  color:#c2c3c6;
+  background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.045) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+  white-space:nowrap;
+}
+.tag.accent{ color:#2a1608; background:linear-gradient(163deg,#FBBC94,#E88654); box-shadow:none }
+
+/* --- about --- */
+.about-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+  gap: calc(20*var(--u));
+  align-items:stretch;
+}
+.about-copy{ display:flex; flex-direction:column; justify-content:center }
+.timeline{ display:flex; flex-direction:column; justify-content:center }
+.tl-item{
+  display:grid; grid-template-columns:auto minmax(0,1fr);
+  gap: calc(15*var(--u));
+  padding: calc(13*var(--u)) 0;
+}
+.tl-item + .tl-item{ border-top:1px solid rgba(255,255,255,.09) }
+.tl-item:first-child{ padding-top:0 }
+.tl-item:last-child{ padding-bottom:0 }
+.tl-date{
+  font-size: max(10px, calc(10.2*var(--u)));
+  font-weight:var(--w-medium);
+  letter-spacing:.03em;
+  color:var(--accent);
+  padding-top: calc(3*var(--u));
+  white-space:nowrap;
+}
+.tl-h{
+  font-size: max(12.5px, calc(12.8*var(--u)));
+  font-weight: var(--w-medium);
+  color:#fff;
+  line-height:1.4;
+  letter-spacing:-.004em;
+}
+.tl-p{
+  margin-top: calc(5*var(--u));
+  font-size: max(11.5px, calc(11.4*var(--u)));
+  line-height:1.65;
+  color: rgba(255,255,255,.68);
+}
+
+/* --- work --- */
+#view-work .page-inner{
+  flex:1 1 auto; min-height:0;
+  margin-block:0;
+  padding-top: calc(6*var(--u));
+  display:grid;
+  grid-template-rows: auto minmax(0,1fr);
+  gap: calc(20*var(--u));
+}
+.work-grid{
+  display:grid;
+  grid-template-columns: calc(300*var(--u)) minmax(0,1fr);
+  gap: calc(20*var(--u));
+  min-height:0;
+}
+.work-list{ display:flex; flex-direction:column; gap: calc(8*var(--u)); min-height:0; overflow-y:auto }
+.w-item{
+  width:100%; text-align:left; cursor:pointer;
+  display:flex; flex-direction:column; gap: calc(6*var(--u));
+  padding: calc(13*var(--u)) calc(15*var(--u));
+  border-radius: calc(16*var(--u));
+  background:transparent;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+  transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.w-item:hover{ background: rgba(255,255,255,.06) }
+.w-item[aria-selected="true"]{
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+  box-shadow: inset 0 0 0 1px rgba(214,228,255,.18);
+}
+.w-type{
+  font-size: max(8.5px, calc(8.6*var(--u)));
+  font-weight:var(--w-medium);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#98999C;
+}
+.w-name{
+  font-size: max(12.5px, calc(13.2*var(--u)));
+  font-weight: var(--w-medium);
+  line-height:1.4;
+  letter-spacing:-.004em;
+  color:#fff;
+}
+.w-item[aria-selected="true"] .w-type{ color: var(--accent) }
+.work-detail{ overflow-y:auto; min-height:0; scrollbar-width:thin; scrollbar-color: rgba(255,255,255,.20) transparent }
+.wp{ display:none }
+.wp.active{ display:block; animation: e-page .42s var(--e-soft) both }
+.wp-type{
+  font-size: max(8.5px, calc(8.6*var(--u)));
+  font-weight:var(--w-medium);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#98999C;
+}
+.wp-title{
+  margin-top: calc(8*var(--u));
+  font-family:var(--font-display);
+  font-size: max(16px, calc(19*var(--u)));
+  font-weight: var(--w-display);
+  font-variation-settings:"opsz" 32;
+  line-height:1.28;
+  letter-spacing:-.006em;
+  color:#fff;
+}
+/* 媒体区：单张主图**按原始比例完整展示**（不裁切），过大时按高度等比缩放并居中 */
+.wp-media{
+  margin-top: calc(16*var(--u));
+  display:flex; justify-content:center;
+}
+.wp-media img{
+  width:auto; max-width:100%; height:auto;
+  max-height: clamp(200px, 26vh, calc(320*var(--u)));
+  object-fit:contain;
+  border-radius: calc(14*var(--u));
+  background: rgba(255,255,255,.03);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10), 0 calc(10*var(--u)) calc(26*var(--u)) rgba(0,0,0,.32);
+}
+/* 竖版展图等更高的图，允许更高一些 */
+.wp-media.tall img{ max-height: calc(400*var(--u)) }
+
+/* 其余素材（概念渲染 / 运行界面 / 证书）收成一行胶囊链接，点击弹出大图 */
+.wp-links{ display:flex; flex-wrap:wrap; gap: calc(8*var(--u)); margin-top: calc(14*var(--u)) }
+.wp-chip{
+  display:inline-flex; align-items:center; gap: calc(6*var(--u));
+  padding: calc(7*var(--u)) calc(12*var(--u));
+  border-radius: 999px;
+  font-size: max(10.5px, calc(10.6*var(--u)));
+  font-weight: var(--w-medium);
+  letter-spacing: var(--label-ls);
+  color: rgba(255,255,255,.82);
+  background: rgba(255,255,255,.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.09);
+  cursor:pointer;
+  transition: background .18s ease, color .18s ease;
+}
+.wp-chip:hover{ background: rgba(255,255,255,.13); color:#fff }
+.wp-chip .ic{ width: calc(11*var(--u)); height: calc(11*var(--u)); flex:none; opacity:.75 }
+.wp-list{
+  margin: calc(14*var(--u)) 0 0 0;
+  padding-left: calc(16*var(--u));
+  display:flex; flex-direction:column; gap: calc(7*var(--u));
+}
+.wp-list li{
+  font-size: max(11.5px, calc(11.4*var(--u)));
+  line-height:1.65;
+  color: rgba(255,255,255,.76);
+  list-style: disc;
+}
+/* 大图查看（lightbox） */
+.lb{
+  position:fixed; inset:0; z-index:20;
+  display:none; align-items:center; justify-content:center;
+  padding: max(24px, 4vh) max(24px, 4vw);
+  background: rgba(6,8,12,.88);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  cursor: zoom-out;
+}
+.lb.open{ display:flex; animation: e-page .28s var(--e-soft) both }
+.lb img{
+  max-width:100%; max-height:100%;
+  width:auto; height:auto;
+  object-fit:contain;
+  border-radius: calc(12*var(--u));
+  box-shadow: 0 calc(20*var(--u)) calc(60*var(--u)) rgba(0,0,0,.55);
+}
+.lb-cap{
+  position:absolute; left:0; right:0; bottom: max(20px, 3.4vh);
+  text-align:center; font-size: max(11.5px, calc(11.8*var(--u)));
+  color: rgba(255,255,255,.72);
+}
+.lb-close{
+  position:absolute; top: max(18px, 3vh); right: max(20px, 3vw);
+  width: 38px; height: 38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:19px; line-height:1; color:#fff;
+  background: rgba(255,255,255,.10);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+  cursor:pointer; transition: background .18s ease;
+}
+.lb-close:hover{ background: rgba(255,255,255,.18) }
+.wp-link{
+  display:inline-flex; align-items:center; gap: calc(6*var(--u));
+  margin-top: calc(16*var(--u));
+  font-size: max(11.5px, calc(11.6*var(--u)));
+  font-weight: var(--w-medium);
+  color: var(--accent);
+}
+.wp-link:hover{ text-decoration:underline }
+
+/* --- strengths --- */
+.strength-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap: calc(16*var(--u)) }
+.s-card{ display:flex; flex-direction:column; gap: calc(10*var(--u)); padding: calc(20*var(--u)) calc(21*var(--u)) }
+.s-icon{
+  width: max(28px, calc(30*var(--u))); height: max(28px, calc(30*var(--u)));
+  border-radius: calc(10*var(--u));
+  display:grid; place-items:center;
+  background: linear-gradient(163deg,#FBBC94 0%,#F49D70 46%,#E88654 100%);
+  color:#2a1608;
+  box-shadow: 0 calc(3*var(--u)) calc(12*var(--u)) rgba(210,110,60,.28);
+}
+.s-icon svg{ width: max(15px, calc(16*var(--u))); height: max(15px, calc(16*var(--u))); fill:currentColor }
+.s-h{ font-size: max(13px, calc(13.4*var(--u))); font-weight: var(--w-medium); color:#fff; letter-spacing:-.004em }
+.s-p{ font-size: max(11.5px, calc(11.4*var(--u))); line-height:1.68; color: rgba(255,255,255,.72) }
+.metrics-row{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap: calc(16*var(--u)) }
+.metric{ display:flex; flex-direction:column; gap: calc(4*var(--u)); padding: calc(16*var(--u)) calc(18*var(--u)) }
+.metric b{
+  font-family:var(--font-display);
+  font-size: max(19px, calc(24*var(--u)));
+  font-weight: var(--w-display);
+  font-variation-settings:"opsz" 32;
+  color:#fff;
+  letter-spacing:-.01em;
+}
+.metric span{ font-size: max(10px, calc(10.2*var(--u))); color:#98999C; letter-spacing:.02em }
+.honor-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap: calc(16*var(--u)) }
+.honor{
+  display:grid; grid-template-columns:auto minmax(0,1fr);
+  gap: calc(14*var(--u)); align-items:center;
+  padding: calc(16*var(--u)) calc(18*var(--u));
+}
+.honor .badge{
+  width: max(36px, calc(38*var(--u))); height: max(36px, calc(38*var(--u)));
+  border-radius: calc(12*var(--u));
+  display:grid; place-items:center;
+  background: rgba(255,255,255,.09);
+  box-shadow: inset 0 0 0 1px rgba(214,228,255,.12);
+  color:#fff;
+}
+.honor .badge svg{ width: max(17px, calc(18*var(--u))); height: max(17px, calc(18*var(--u))); fill:currentColor }
+.honor b{ display:block; font-size: max(12.5px, calc(12.6*var(--u))); font-weight: var(--w-medium); color:#fff }
+.honor span{ display:block; margin-top: calc(4*var(--u)); font-size: max(11px, calc(11*var(--u))); line-height:1.6; color: rgba(255,255,255,.68) }
+
+/* --- contact --- */
+.contact-grid{
+  display:grid; grid-template-columns: minmax(0,1.35fr) minmax(0,.65fr);
+  gap: calc(20*var(--u));
+  align-items:stretch;
+}
+.contact-main{ display:flex; flex-direction:column; justify-content:center }
+.contact-side{
+  display:flex; flex-direction:column; justify-content:center; gap: calc(10*var(--u));
+  border-radius: calc(var(--card-r)*var(--u));
+  padding: calc(22*var(--u));
+  background: linear-gradient(163deg, rgba(251,188,148,.92) 0%, rgba(244,157,112,.92) 46%, rgba(232,134,84,.92) 100%);
+  color:#2a1608;
+  box-shadow: 0 calc(14*var(--u)) calc(40*var(--u)) rgba(180,90,45,.26);
+}
+.contact-side b{ font-size: max(12.5px, calc(12.8*var(--u))); font-weight:600; letter-spacing:-.004em }
+.contact-side span{ font-size: max(11px, calc(11.2*var(--u))); line-height:1.6; opacity:.78 }
+
+/* ══════════════════════════ ENTRANCE (once, not scroll-bound) ══════════════════════════ */
+@keyframes e-settle-down{ from{opacity:0; transform:translateY(calc(-5*var(--u)))} to{opacity:1; transform:none} }
+@keyframes e-settle-up{ from{opacity:0; transform:translateY(calc(6*var(--u)))} to{opacity:1; transform:none} }
+@keyframes e-mark{ from{transform:scale(.9)} to{transform:scale(1)} }
+@keyframes e-focus{ from{opacity:0; transform:translateY(calc(14*var(--u))); filter:blur(6px)} to{opacity:1; transform:none; filter:blur(0)} }
+@keyframes e-page{ from{opacity:0; transform:translateY(calc(14*var(--u)))} to{opacity:1; transform:none} }
+
+@media (prefers-reduced-motion: no-preference){
+  html.anim .brand{ animation:e-settle-down .58s var(--e-soft) .06s both }
+  html.anim .brand .mark{ animation:e-mark .62s var(--e-primary) .06s both }
+  html.anim .links a:nth-child(1){ animation:e-settle-down .50s var(--e-soft) .16s both }
+  html.anim .links a:nth-child(2){ animation:e-settle-down .50s var(--e-soft) .21s both }
+  html.anim .links a:nth-child(3){ animation:e-settle-down .50s var(--e-soft) .26s both }
+  html.anim .links a:nth-child(4){ animation:e-settle-down .50s var(--e-soft) .31s both }
+  html.anim .cta{ animation:e-settle-down .55s var(--e-soft) .34s both }
+  html.anim .h1{ animation:e-focus 1.00s var(--e-primary) .30s both; will-change:transform,opacity }
+  html.anim .proof-cap{ animation:e-settle-up .55s var(--e-soft) 1.08s both }
+  html.anim .logo:nth-child(1){ animation:e-settle-up .55s var(--e-soft) 1.16s both }
+  html.anim .logo:nth-child(2){ animation:e-settle-up .55s var(--e-soft) 1.22s both }
+  html.anim .logo:nth-child(3){ animation:e-settle-up .55s var(--e-soft) 1.28s both }
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important }
+}
+
+/* ══════════════════════════ TABLET — 600–1180 wide, height ≥ 600 ══════════════════════════ */
+@media (min-width:600px) and (max-width:1180px) and (min-height:600px){
+  :root{ --u: 1px }
+  .frame{ padding: clamp(24px,3.4vh,44px) clamp(28px,4.2vw,60px) clamp(26px,4.4vh,56px) }
+
+  .links{ font-size: clamp(12px,1.52vw,18px); gap: clamp(15px,2.5vw,32px) }
+  .brand{ font-size: clamp(15px,1.6vw,18.5px); gap:10px }
+  .brand .mark{ width:30px; height:30px }
+  .cta{
+    width: clamp(94px,12.6vw,140px);
+    height: clamp(38px,4.6vh,43px);
+    border-radius:11px;
+    font-size: clamp(13px,1.3vw,15.7px);
+    margin-top:0;
+  }
+
+  .h1{ font-size: clamp(27px,4.3vw,44px); line-height:1.12 }
+
+  .proof{ gap: clamp(15px,2.5vh,30px) }
+  .proof-cap{ font-size:13px }
+  .proof-logos{ gap: clamp(26px,4.4vw,52px) }
+  .logo[data-lw="96.84"]{ width: clamp(70px,9.6vw,96.84px) }
+  .logo[data-lw="88.68"]{ width: clamp(64px,8.8vw,88.68px) }
+  .logo[data-lw="67.29"]{ width: clamp(49px,6.7vw,67.29px) }
+
+  /* sub pages */
+  .page-inner{ gap: clamp(18px,2.6vh,26px) }
+  .panel{ border-radius: clamp(17px,2.1vw,26px); padding: clamp(16px,2.4vw,26px) }
+  .page-title{ font-size: clamp(24px,3.4vw,32px) }
+  .about-grid{ grid-template-columns: minmax(0,1fr); gap:14px }
+  .work-grid{ grid-template-columns: minmax(0,1fr); gap:14px }
+  .work-list{ flex-direction:row; flex-wrap:nowrap; overflow-x:auto; gap:10px; padding-bottom:4px }
+  .w-item{ min-width:238px; flex:none }
+  .work-detail{ overflow:visible }
+  #view-work .page-inner{ display:flex; flex-direction:column; flex:0 1 auto; margin-block:auto }
+  .strength-grid{ grid-template-columns: minmax(0,1fr); gap:14px }
+  .metrics-row{ grid-template-columns: repeat(2,minmax(0,1fr)); gap:14px }
+  .honor-grid{ grid-template-columns: minmax(0,1fr); gap:14px }
+  .contact-grid{ grid-template-columns: minmax(0,1fr); gap:14px }
+  .wp-media img{ max-height: clamp(210px,30vh,340px) }
+  .wp-media.tall img{ max-height: clamp(260px,40vh,460px) }
+}
+
+/* ══════════════════════════ COMPACT — ≤ 599 wide, or short & ≤ 1180 ══════════════════════════ */
+@media (max-width:599px), (max-height:599px) and (max-width:1180px){
+  :root{ --u: 1px }
+  .frame{
+    padding:
+      max(18px, env(safe-area-inset-top))
+      max(clamp(18px,5.2vw,40px), env(safe-area-inset-right))
+      max(20px, env(safe-area-inset-bottom))
+      max(clamp(18px,5.2vw,40px), env(safe-area-inset-left));
+  }
+
+  .brand{ font-size:16px; gap:9px }
+  .brand .mark{ width:30px; height:30px }
+  .links, header .cta{ display:none }
+  .burger{ display:grid }
+  .nav{ height:38px }
+
+  .sheet{
+    display:grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .32s cubic-bezier(.4,0,.2,1);
+    flex:none;
+  }
+  #menu:checked ~ .sheet{ grid-template-rows: 1fr }
+  .sheet-inner{ overflow:hidden; min-height:0 }
+  .sheet-panel{
+    margin-top:14px;
+    padding:14px;
+    border-radius:16px;
+    background: rgba(24,24,27,.86);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.09);
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .sheet-panel a{
+    display:block;
+    padding:11px 12px;
+    border-radius:11px;
+    font-size:15px;
+    color:rgba(255,255,255,.92);
+  }
+  .sheet-panel a:hover{ background:rgba(255,255,255,.08) }
+  .sheet-panel a.active{ color:var(--accent) }
+  .sheet-panel .sheet-cta{
+    margin-top:8px;
+    height:40px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:11px;
+    font-size:15px;
+    font-weight:520;
+    background: linear-gradient(180deg, #3d3d3f 0%, #1d1d20 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+  }
+
+  .h1{
+    width:100%; max-width:15ch;
+    font-size: clamp(29px,7.6vw,50px);
+    line-height:1.14;
+    letter-spacing:-.012em;
+    white-space:normal;
+  }
+
+  .proof{ gap: clamp(12px,2.6vh,20px) }
+  .proof-cap{ font-size:12.5px }
+  .proof-logos{ gap: clamp(20px,7vw,34px) }
+  .logo[data-lw="96.84"]{ width:70px }
+  .logo[data-lw="88.68"]{ width:64px }
+  .logo[data-lw="67.29"]{ width:49px }
+
+  /* sub pages */
+  .page-inner{ gap:18px }
+  .panel{ border-radius:18px; padding:16px }
+  .page-title{ font-size: clamp(21px,5.8vw,30px); line-height:1.2 }
+  .page-lead{ font-size: 13px }
+  .body{ font-size:13px }
+  .about-grid, .strength-grid, .honor-grid, .contact-grid{ grid-template-columns: minmax(0,1fr); gap:12px }
+  .metrics-row{ grid-template-columns: repeat(2,minmax(0,1fr)); gap:12px }
+  .work-grid{ grid-template-columns: minmax(0,1fr); gap:14px }
+  .work-list{ flex-direction:row; flex-wrap:nowrap; overflow-x:auto; gap:10px; padding-bottom:4px }
+  .w-item{ min-width:210px; flex:none }
+  .wp-media img{ max-height: clamp(180px,26vh,250px) }
+  .wp-media.tall img{ max-height: clamp(220px,34vh,340px) }
+  #view-work .page-inner{ display:flex; flex-direction:column; flex:0 1 auto; margin-block:auto }
+  .work-detail{ overflow:visible }
+}
+
+/* extra short viewport */
+@media (max-width:1180px) and (max-height:560px){
+  .h1{ font-size: clamp(24px,5.4vh,34px) }
+  .proof{ gap:10px }
+  .frame{ padding-top:10px }
+}
+</style>
+</head>
+<body data-page-node-id="tQ5rsd6Hxs0X22BaIFHd22">
+
+<div class="stage" data-page-node-id="mwR4WHk3EA9b2TA1t14u42">
+  <video class="stage-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true" data-page-node-id="eMBZ0SAPP7DFHNAcuVwtOb">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_124724_bc041163-d651-425f-aea3-2acc1efc2c96.mp4" type="video/mp4" data-page-node-id="JeHXpRtHCviVOma2KkxPRn">
+  </video>
+
+  <div class="frame" data-page-node-id="DI0MkaRneAzC6a4Ha45SF8">
+    <input type="checkbox" id="menu" class="menu-toggle" aria-hidden="true" tabindex="-1" data-page-node-id="qV7qEEEDAmpR31PZ07MI6F">
+
+    <header class="nav" data-page-node-id="suyVxHfEZFEf7xQv3O0gax">
+      <a class="brand" href="#view-home" data-nav="view-home" aria-label="返回首页" data-page-node-id="uobOvk0XGtswoASTibCAzp">
+        <svg class="mark" viewBox="0 0 34 34" aria-hidden="true" data-page-node-id="Ibv1nL7trFUG0dVujBOSAB">
+          <circle cx="17" cy="17" r="17" fill="#9C86CE" data-page-node-id="DgSST9RdrMBPluJf66GGh8"/>
+          <circle cx="17" cy="17" r="8.6" fill="#FFFFFF" data-page-node-id="pf1nWdhtybOFFuw10WBtCJ"/>
+          <circle cx="17" cy="17" r="3.7" fill="#151519" data-page-node-id="AExg7h3rti1fJUrf0LQ6ra"/>
+        </svg>
+        <span class="brand-txt" data-page-node-id="H9FuOETX9E6hg4MMN2fvzE">个人作品集</span>
+      </a>
+
+      <nav class="links" aria-label="主导航" data-page-node-id="mXlJn2ovSgwQOp5GkalWvK">
+        <a href="#view-about" data-nav="view-about" data-page-node-id="FRgveQA4WJBAx6Gb1HINkU">关于我</a>
+        <a href="#view-work" data-nav="view-work" data-page-node-id="tqVHfxVsos8nm1Fvj8FfzT">项目作品</a>
+        <a href="#view-strength" data-nav="view-strength" data-page-node-id="pIYengP55ED8pGhDGF52cf">个人优势</a>
+        <a href="#view-contact" data-nav="view-contact" data-page-node-id="Fa02HEjEEdawAgIPgIbr0z">联系方式</a>
+      </nav>
+
+      <a class="cta" href="#view-work" data-nav="view-work" data-page-node-id="og3WWpK2AD7F7bFIYwJHH8"><span data-page-node-id="dqJNhYcDetVBxNwznDFmcG">查看作品</span></a>
+
+      <label class="burger" for="menu" role="button" aria-label="打开导航" tabindex="0" data-page-node-id="niGR0nVGe34FKfuFHwQQ7F"><span data-page-node-id="gDhPuL1oFOnMs4GbbLOZsb"></span><span data-page-node-id="VRKnZmERwRHb97ynOWTL3q"></span></label>
+    </header>
+
+    <div class="sheet" data-page-node-id="bGYefPD4EBHMEmJRQrKK6D">
+      <div class="sheet-inner" data-page-node-id="fwNv8ErmRLRvUP3e8ubiXW">
+        <div class="sheet-panel" data-page-node-id="gxGjgVF8eC1pxmoBVyL9DL">
+          <a href="#view-about" data-nav="view-about" data-page-node-id="n8eiqUO08RkHmAG4uljrQr">关于我</a>
+          <a href="#view-work" data-nav="view-work" data-page-node-id="utRRUHYKXehacDCUv31NPk">项目作品</a>
+          <a href="#view-strength" data-nav="view-strength" data-page-node-id="KeNXtnHdEtyITKasdxKLVS">个人优势</a>
+          <a href="#view-contact" data-nav="view-contact" data-page-node-id="YLO9a5JaFUrwWxW2ihjXCM">联系方式</a>
+          <a class="sheet-cta" href="#view-work" data-nav="view-work" data-page-node-id="GUlMb619SCijjWBcK3A8qD">查看作品</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pages" data-page-node-id="eEWCoCVLE1pTA5Zl5X6M9Y">
+
+      <!-- ══════════ 首页 / HERO ══════════ -->
+      <section class="view" id="view-home" aria-label="首页" data-page-node-id="9GtuGWeoC84qvDbEQWEBh2">
+        <h1 class="h1" data-page-node-id="NaaIQ2PGZgCww3caCQm5Sx">以技术探索可能，以实践创造价值。</h1>
+
+      </section>
+
+      <!-- ══════════ 关于我 ══════════ -->
+      <section class="view page" id="view-about" aria-labelledby="t-about" data-page-node-id="ZaaeaBWSZw3aZ5XDUNG7Ky">
+        <div class="page-inner" data-page-node-id="AHVKSEaF3DPEKEX0dTcZdV">
+          <div class="page-head" data-page-node-id="3MebIiNBHWuekpIlInoKXt">
+            <div class="kicker" data-page-node-id="g0PGgXr11xdhksBDc3WzK8">01 / About</div>
+            <h2 class="page-title" id="t-about" data-page-node-id="8uMVDNy0RWG05yZrg3CXme">关于我</h2>
+            <p class="page-lead" data-page-node-id="mNbvQ6g59o2KmF8AHeUEAl">计算机科学与技术专业本科生，关注计算机视觉、智能感知与嵌入式物联网应用。</p>
+          </div>
+
+          <div class="about-grid" data-page-node-id="FqUEpTkN2VeF8XOD14vKQF">
+            <div class="panel about-copy" data-page-node-id="UwAZEjWOzA8crK2MFaKNw1">
+              <p class="body" data-page-node-id="vmtbIzIDLn2NgDmBDEIPBg">从法语专业转入计算机专业，这是一次主动的方向选择。在新的学习阶段里，我持续补充专业知识，并通过学科竞赛与团队项目积累实践经验。</p>
+              <p class="body" data-page-node-id="Yk0btL6qRzTZjzEFr6xCht">重视从真实需求出发，通过学习、调试与协作，把想法逐步转化为可展示的成果。在项目里承担过系统集成、运行环境配置、模型运行调试以及材料撰写与答辩等具体工作。</p>
+              <div class="tag-row" data-page-node-id="WuezzAwvYsuSjj81oDiqaC">
+                <span class="tag accent" data-page-node-id="BYKsZY1H3LWo4hYXoOPEEU">计算机视觉</span>
+                <span class="tag" data-page-node-id="5UlkPga09WwNiySIHVho4h">智能感知</span>
+                <span class="tag" data-page-node-id="GZTDFnE1Htk88t6hnnhyVL">嵌入式 · 物联网</span>
+                <span class="tag" data-page-node-id="c3KPiGOJDJ7gbR2j4bOidU">项目实践</span>
+              </div>
+            </div>
+
+            <div class="panel timeline" data-page-node-id="zlDjIrnRpb3tIcoPXL3e0l">
+              <div class="tl-item" data-page-node-id="8I7CVBQXJ6a3SGFPmBDC9z">
+                <div class="tl-date" data-page-node-id="cQ5tgTUBIXCbeQLrQ4sITD">2024.09 —</div>
+                <div data-page-node-id="9GFPhTUCnPAjDtmsuDgOv8">
+                  <h3 class="tl-h" data-page-node-id="O6MyglgzyK20iLy8YbgAux">开启本科阶段学习</h3>
+                  <p class="tl-p" data-page-node-id="88HrcZ9q0Cj8lNOnt9iCVV">进入南京财经大学学习，逐步探索适合自己的发展方向。</p>
+                </div>
+              </div>
+              <div class="tl-item" data-page-node-id="113AGeEb8LflswHbiadofZ">
+                <div class="tl-date" data-page-node-id="sbmZflCnQXRDYVzIKZGrzH">2025.09 —</div>
+                <div data-page-node-id="YPb8sE03NIrzh9R4EqAsNx">
+                  <h3 class="tl-h" data-page-node-id="PG0pbH66M6mVdZWnGYTtZN">转入计算机科学与技术专业</h3>
+                  <p class="tl-p" data-page-node-id="2aSTH0gVn51O8lOAy7gIUH">转专业考核总评第 2 名，开始系统学习计算机相关课程。</p>
+                </div>
+              </div>
+              <div class="tl-item" data-page-node-id="IwDyI7lH8Xg2DmAGGLcCeJ">
+                <div class="tl-date" data-page-node-id="6AJYjTUF0Tpq2PBFfptNDf">2025.10 —</div>
+                <div data-page-node-id="f1L0rvQ01RsRzf2fJKYCwS">
+                  <h3 class="tl-h" data-page-node-id="oV7FppZMKwNkmaFZoYiSsx">投入项目实践与学科竞赛</h3>
+                  <p class="tl-p" data-page-node-id="SRPAOSrDKI19PdTrX1Amdn">参与智能感知眼镜项目，开展系统集成、环境配置、模型运行调试与竞赛材料准备。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ 项目作品 ══════════ -->
+      <section class="view page" id="view-work" aria-labelledby="t-work" data-page-node-id="TAPnKLfgXB7QFbckUCh02Y">
+        <div class="page-inner" data-page-node-id="u3Rink6B7F8eJHwQD4j1dK">
+          <div class="page-head" data-page-node-id="uFD0nOv9XX7NQLDnvWP3fi">
+            <div class="kicker" data-page-node-id="N4A2JWIPcpAYFckG8vl4IZ">02 / Selected Work</div>
+            <h2 class="page-title" id="t-work" data-page-node-id="X8W3XHY0xK5XuP4jWuVri2">项目作品</h2>
+          </div>
+
+          <div class="work-grid" data-page-node-id="BvPPvBKRQACMXNhd8ToChk">
+            <div class="work-list" role="tablist" aria-label="项目列表" data-page-node-id="aWa6vTyBq1LArqvXU4XOdL">
+              <button type="button" class="w-item" role="tab" aria-selected="true" data-project="p1" id="tab-p1" aria-controls="wp-p1" data-page-node-id="KzBllUGDIArn3ZK7ERdEzt">
+                <span class="w-type" data-page-node-id="X8Qh9f47hzE6mb16NrNZ2O">IoT · Computer Vision</span>
+                <span class="w-name" data-page-node-id="ZcwJKoC9QTWBjrgXiPLmlQ">微光视界｜智能导盲眼镜</span>
+              </button>
+              <button type="button" class="w-item" role="tab" aria-selected="false" data-project="p2" id="tab-p2" aria-controls="wp-p2" tabindex="-1" data-page-node-id="EQgQqsDXB5uclSCdshjRKB">
+                <span class="w-type" data-page-node-id="RAnnZg1J47lZCEpsLsCNoT">Computer Vision · Desktop</span>
+                <span class="w-name" data-page-node-id="Nx35iMgmn2MksQtYPVfEgr">基于图像特征匹配的智能场景识别系统</span>
+              </button>
+              <button type="button" class="w-item" role="tab" aria-selected="false" data-project="p3" id="tab-p3" aria-controls="wp-p3" tabindex="-1" data-page-node-id="UH31AYcxBNp2r0FJ6XFy1T">
+                <span class="w-type" data-page-node-id="Rza1SmD28gsnzDW0W7NU5c">Industrial Design · Concept</span>
+                <span class="w-name" data-page-node-id="pmy8JA4hggycOA7rKID8xO">工业设计大赛参赛作品｜智能感知眼镜</span>
+              </button>
+            </div>
+
+            <div class="panel work-detail" id="work-detail" data-page-node-id="03RrDRCJ6Sv3ScvASY3c03">
+              <!-- P1 -->
+              <div class="wp active" id="wp-p1" role="tabpanel" aria-labelledby="tab-p1" data-page-node-id="qQkHDVr6v5ZSGXWE9coA4M">
+                <div class="wp-type" data-page-node-id="GggB7UwCaQ2WxuG9m8oajM">IoT · Computer Vision · Team Project</div>
+                <h3 class="wp-title" data-page-node-id="CjHzoGEScCI85V5XLwY9Wg">微光视界｜智能导盲眼镜</h3>
+                <div class="wp-media" data-page-node-id="RxwXyDxpTiD78DVRHTXkhG">
+                  <img src="assets/prototype.jpg" alt="微光视界智能感知导盲眼镜实物原型：3D 打印镜架与骨传导语音模组" loading="lazy" data-page-node-id="p11UQh9Ojvho0vHetTWXRM">
+                </div>
+                <p class="body" style="margin-top:16px" data-page-node-id="ZQUJUuzHLpGDJhHxli5tX3">面向视障群体出行辅助场景，探索设备端采集、云端视觉推理与结果反馈协同的智能感知系统。项目包含真实硬件原型、运行环境配置、视觉模型运行调试与竞赛展示。</p>
+                <div class="tag-row" style="margin-top:12px" data-page-node-id="On0RuyxhCszbL23y6hw3mu">
+                  <span class="tag" data-page-node-id="XNkAVWTyRTMELOVJtYrSKt">端云协同</span>
+                  <span class="tag" data-page-node-id="yZESKhR6mT83T7vaRnfPSI">ESP32</span>
+                  <span class="tag" data-page-node-id="95IaPKQEj7Ib5qCzVnfyQ5">OpenCV / YOLO</span>
+                  <span class="tag" data-page-node-id="Bg13Cx9eF5qDDqDCDGeoAj">系统调试</span>
+                </div>
+                <ul class="wp-list" data-page-node-id="vnGjrslQ73BuAQM7lSp0J8">
+                  <li data-page-node-id="mGLeZwCPv0xvLU58z4TTXu">参与端云协同架构规划、技术路线梳理与系统集成调试。</li>
+                  <li data-page-node-id="OxlfJU7A7ywA4Ez35TBKGT">完成运行环境配置、视觉模型加载与系统调试，查阅资料解决依赖和模型运行问题。</li>
+                  <li data-page-node-id="BuBflqyt4QEzGiwbuA4H0w">负责大创申报书及项目材料的整理、撰写与修改，并参与竞赛答辩、回答评委问题。</li>
+                </ul>
+                <p class="body" style="margin-top:16px" data-page-node-id="jwjZuKqRMEw72FPgx0J174">项目成果：省级大学生创新创业训练计划立项；中国大学生计算机设计大赛校级一等奖、省级二等奖、国家级二等奖。</p>
+                <div class="wp-links" data-page-node-id="kCssJvl3vCiOoSnR1WDcrg">
+                  <button type="button" class="wp-chip" data-lightbox="assets/product-render.jpg" data-caption="智能感知眼镜概念渲染图" data-page-node-id="fo6l57naKvoXfDcpuXbyYJ">
+                    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M4 15.2 15.2 4H20v4.8L8.8 20H4v-4.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                    概念渲染图
+                  </button>
+                  <button type="button" class="wp-chip" data-lightbox="assets/esp32-interface.png" data-caption="摄像头与语音识别运行界面" data-page-node-id="TbghApZ4ZLnXIwnCWmDjwt">
+                    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none"><rect x="3.2" y="4.6" width="17.6" height="12.4" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8.6 20.2h6.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                    运行界面
+                  </button>
+                  <button type="button" class="wp-chip" data-lightbox="assets/award-national.jpg" data-caption="中国大学生计算机设计大赛国家级二等奖" data-page-node-id="NoGDdxuW47aQoPRp0k7h51">
+                    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="9.4" r="5.2" stroke="currentColor" stroke-width="1.7"/><path d="M8.4 13.6 7 20.6l5-2.2 5 2.2-1.4-7" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                    国家级二等奖证书
+                  </button>
+                  <button type="button" class="wp-chip" data-lightbox="assets/award-provincial.jpg" data-caption="江苏省大学生计算机设计大赛二等奖" data-page-node-id="FzfB55HGNplhCPLcjTddlm">
+                    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="9.4" r="5.2" stroke="currentColor" stroke-width="1.7"/><path d="M8.4 13.6 7 20.6l5-2.2 5 2.2-1.4-7" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                    省级二等奖证书
+                  </button>
+                </div>
+              </div>
+
+              <!-- P2 -->
+              <div class="wp" id="wp-p2" role="tabpanel" aria-labelledby="tab-p2" data-page-node-id="YioEkGhpqcwd8bRv3ezcRE">
+                <div class="wp-type" data-page-node-id="CSe81a5lmfGjThgwCgLzTT">Computer Vision · Desktop Software</div>
+                <h3 class="wp-title" data-page-node-id="YfuypwQnaFiptYM4bSQl8x">基于图像特征匹配的智能场景识别系统</h3>
+                <div class="wp-media single" data-page-node-id="Yf8URfz2xZ6ZYoFaZPVlKZ">
+                  <img src="assets/feature-matching.png" alt="图像特征匹配智能场景识别系统软件界面" loading="lazy" data-page-node-id="aY1K7RORyP1sPE0r7iC7QB">
+                </div>
+                <p class="body" style="margin-top:16px" data-page-node-id="K64IfNbr7gatPyYSJKtwQp">围绕图像场景识别，结合深度语义相似度与 ORB 特征匹配，展示候选场景、匹配连线及综合评分。</p>
+                <div class="tag-row" style="margin-top:12px" data-page-node-id="j9kCtUUAT2g7rwvBR1Pjrj">
+                  <span class="tag" data-page-node-id="xtWe3pENDzo5XeOOcPDHsA">Python</span>
+                  <span class="tag" data-page-node-id="p0vePRD8xIuEFDzSG8RECO">OpenCV</span>
+                  <span class="tag" data-page-node-id="DuLkXSYAFc2h5CVwB8mjDD">PyTorch</span>
+                  <span class="tag" data-page-node-id="c40lDZvu1dWCXZ8a7dMXoe">PyQt5</span>
+                </div>
+                <ul class="wp-list" data-page-node-id="yrL5WX9Fm1RMdEpGyuh4tw">
+                  <li data-page-node-id="9o5Bgg3dFAd1A8IQE8l4Vv">功能展示：导入待识别图片、匹配最佳场景、查看特征匹配连线和评分结果。</li>
+                  <li data-page-node-id="udgs7QxRMxPVBKwNIu947l">支持场景库管理与历史记录查看，页面展示的是当前软件运行截图。</li>
+                  <li data-page-node-id="PuENXVAqpD4BqvzgGrADR5">技术实践：图像处理、预训练视觉特征、ORB 特征匹配与桌面界面集成。</li>
+                </ul>
+              </div>
+
+              <!-- P3 -->
+              <div class="wp" id="wp-p3" role="tabpanel" aria-labelledby="tab-p3" data-page-node-id="8eXeePnqhaNm6pInDGCk6U">
+                <div class="wp-type" data-page-node-id="F0zShj4LDVePA4EwX94omJ">Industrial Design · Product Concept</div>
+                <h3 class="wp-title" data-page-node-id="DoFjJ5CPjUD33VaJJddEC8">工业设计大赛参赛作品｜智能感知眼镜</h3>
+                <div class="wp-media single tall" data-page-node-id="sYjK6T7X6o8UzOX1I2RX00">
+                  <img src="assets/industrial-design-board.jpg" alt="微光视界工业设计大赛完整参赛展图" loading="lazy" data-page-node-id="UuAA974iNc1BG7mwgGxWaC">
+                </div>
+                <p class="body" style="margin-top:16px" data-page-node-id="LyutUAL13lhzUZWwISwvSO">通过完整参赛展图呈现产品外观、结构拆解、电子系统布局、交互界面与技术架构，展示产品设计与功能构想。</p>
+                <div class="tag-row" style="margin-top:12px" data-page-node-id="CAjO0dF3MgLjPKXEbgLyFl">
+                  <span class="tag" data-page-node-id="lmJ6ocfkzCSyzsBgyMvtkt">产品外观</span>
+                  <span class="tag" data-page-node-id="gk8g8nImosK0dHKs4nkN0e">结构设计</span>
+                  <span class="tag" data-page-node-id="ujMwcxBS0BtcTmnBs1PKmk">交互设计</span>
+                  <span class="tag" data-page-node-id="GDXOZU0xVoSY2zSuA1xUYe">系统架构</span>
+                </div>
+                <ul class="wp-list" data-page-node-id="3SuJcL1PMH8aF6RFqAaELJ">
+                  <li data-page-node-id="x25CqpYHsFVqBrOfT7u8GI">展图包含设计说明、产品结构、电子系统、交互界面、技术架构、产品亮点与设计细节。</li>
+                  <li data-page-node-id="ezj4S0X0qg6pyYLilO7Nxe">以一张展板完整呈现从概念到系统布局的设计链路。</li>
+                </ul>
+                <a class="wp-link" href="assets/industrial-design-board.jpg" target="_blank" rel="noopener" data-page-node-id="ntfvvVmXH6UoSJmeb09uKB">打开完整参赛展图 ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ 个人优势 ══════════ -->
+      <section class="view page" id="view-strength" aria-labelledby="t-strength" data-page-node-id="TcsCCJHnCbXx6sMoF8rHAh">
+        <div class="page-inner" data-page-node-id="J5RSDSmNmVp3Ziay0qBR3z">
+          <div class="page-head" data-page-node-id="IIP1A9NGgTjUKgUuIZDxHq">
+            <div class="kicker" data-page-node-id="3gKVIH6zLQr66HhwRPn03o">03 / Strengths</div>
+            <h2 class="page-title" id="t-strength" data-page-node-id="XhONqQzQdPeqAnTNpWtwkh">个人优势</h2>
+            <p class="page-lead" data-page-node-id="RVNiplTpAHiMBF81YnQDJ7">以真实的学习表现、项目参与和团队经历为基础，持续积累综合能力。</p>
+          </div>
+
+          <div class="strength-grid" data-page-node-id="MFuFiFV393kRsVBFtpZVRv">
+            <div class="panel s-card" data-page-node-id="mMC6FmurqxOoYKgp99teD3">
+              <div class="s-icon" data-page-node-id="L1VhxlLkuMJfObDg0cBW6z">
+                <svg viewBox="0 0 24 24" aria-hidden="true" data-page-node-id="FHrlJXNxUxheEqfmaJdQds"><rect x="6.6" y="6.6" width="10.8" height="10.8" rx="2.6" data-page-node-id="dJW2muyLGnwAAHSLel0bnc"/><rect x="9.6" y="2.8" width="1.7" height="3.6" rx="0.85" data-page-node-id="7pDbLCAm6eKfB8Jua2ZDSf"/><rect x="12.95" y="2.8" width="1.7" height="3.6" rx="0.85" data-page-node-id="dQxG0sRulf0POb63XIkmqg"/><rect x="9.6" y="17.6" width="1.7" height="3.6" rx="0.85" data-page-node-id="jjeSbkcKE6b4ByFMgpzt7i"/><rect x="12.95" y="17.6" width="1.7" height="3.6" rx="0.85" data-page-node-id="yEb2IW0sKcNBUWxpeC064d"/><rect x="2.8" y="9.6" width="3.6" height="1.7" rx="0.85" data-page-node-id="PM7SNwk8z4H1bEw2GZqf2F"/><rect x="2.8" y="12.95" width="3.6" height="1.7" rx="0.85" data-page-node-id="BkDi9DK77ef6xA9elm5yO7"/><rect x="17.6" y="9.6" width="3.6" height="1.7" rx="0.85" data-page-node-id="phipAiHkX8V9OF40tvwMoc"/><rect x="17.6" y="12.95" width="3.6" height="1.7" rx="0.85" data-page-node-id="IPA7LZeaFONKqZZw7mUQJW"/></svg>
+              </div>
+              <h3 class="s-h" data-page-node-id="TCJNPmwD9KClBvKe9zpSCQ">技术实践</h3>
+              <p class="s-p" data-page-node-id="cpJjtcWg6Y7z9YgoiBERP3">具备 Python 项目实践经验，接触 OpenCV、YOLO、视觉模型运行与调试，并参与 ESP32 摄像头数据采集及设备调试。</p>
+            </div>
+
+            <div class="panel s-card" data-page-node-id="MJkiAutCpq9jKQEWzARk8s">
+              <div class="s-icon" data-page-node-id="6QeV4FQVycSWESdababhsn">
+                <svg viewBox="0 0 24 24" aria-hidden="true" data-page-node-id="5zEnEeYyWsGsp9mG6cJIN6"><path d="M4.4 3.2h2.2v17.6H4.4z" data-page-node-id="lFPb1q1hJYhHGkK2frA3IN"/><path d="M7.6 4.2c3.2-1.5 6.4 1 9.6-.6v8c-3.2 1.6-6.4-.9-9.6.6V4.2Z" data-page-node-id="kUNxGZUEg1rIkiqc1IUzm7"/></svg>
+              </div>
+              <h3 class="s-h" data-page-node-id="yjCmgRpKLivrunFNH3oBwo">项目协作</h3>
+              <p class="s-p" data-page-node-id="ipCKY7DRsOUBg09mvazzzW">参与技术路线梳理、系统集成、项目材料撰写与竞赛答辩，能够在团队协作中推进具体任务。</p>
+            </div>
+
+            <div class="panel s-card" data-page-node-id="FNP7T3xk90FSVWr2GtEKF5">
+              <div class="s-icon" data-page-node-id="DCY0eDXZJpBhqNuABSMhPR">
+                <svg viewBox="0 0 24 24" aria-hidden="true" data-page-node-id="vqa0JTCgGgHFTiDdPU8Ee1"><path d="M12 2 Q13.2 10.8 22 12 Q13.2 13.2 12 22 Q10.8 13.2 2 12 Q10.8 10.8 12 2 Z" data-page-node-id="b7eOVxAM5mWAZJ1pNyqceM"/></svg>
+              </div>
+              <h3 class="s-h" data-page-node-id="kPpSFMmhzx4ERm1BSiB20x">持续探索</h3>
+              <p class="s-p" data-page-node-id="zihZwbYBuxHkOAzO4ZfuoN">主动调整专业方向，在课程学习、项目实践、学科竞赛与集体活动中不断拓展经验。</p>
+            </div>
+          </div>
+
+          <div class="metrics-row" data-page-node-id="Wv5d1iNEuCDBVosx70Nmaj">
+            <div class="panel metric" data-page-node-id="EbdIcpEtsQ8IUsYWWGQJb5"><b data-page-node-id="gIIlGcaj18pPlN2RULFDi1">4.27</b><span data-page-node-id="yA1P6h6giCwo8cGli3Nu14">累计 GPA</span></div>
+            <div class="panel metric" data-page-node-id="VFm6VEY014eNCkEdFpRkFw"><b data-page-node-id="mSZNoGCBA3kmq0iNto9xqF">1 / 76</b><span data-page-node-id="Gmeyg3XW3DTnJjXMtQdtBP">大二学年专业排名</span></div>
+            <div class="panel metric" data-page-node-id="894mlXNwxXOH265txyZvEU"><b data-page-node-id="2mLqHsfgEcBJYj8UOts7rh">523</b><span data-page-node-id="DtOQWyltx4Yz3ZdDjMtGEP">CET-4</span></div>
+            <div class="panel metric" data-page-node-id="CD28LZ9UlCCuVtkxVZFDxa"><b data-page-node-id="ZNGaYPqxPEBjBRXwX3L63T">国家级</b><span data-page-node-id="bLddGqviyUWPpRtnnvo4fE">计算机设计大赛二等奖</span></div>
+          </div>
+
+          <div class="honor-grid" data-page-node-id="MDFqV8AtTFOQrlrfTCVhYQ">
+            <div class="panel honor" data-page-node-id="YI66aDK3R0z2KV1P2YGqcl">
+              <div class="badge" data-page-node-id="QDqUceWGbpNt5qt9l0sdZB">
+                <svg viewBox="0 0 24 24" aria-hidden="true" data-page-node-id="Xl1WgVDB4Fr9DJSqKF6nKB"><path d="M12 2.6l2.8 6.1 6.7.8-5 4.6 1.3 6.6L12 17.5 6.2 20.7 7.5 14.1l-5-4.6 6.7-.8L12 2.6Z" data-page-node-id="HNEt8Rfrmfzbfaz3owGSCN"/></svg>
+              </div>
+              <div data-page-node-id="BUZ4EEljDOmIJlGEj1f0OH">
+                <b data-page-node-id="PhCBo09cqJTKvRqG0cz2w2">学业与综合荣誉</b>
+                <span data-page-node-id="ReRaMki9RYC3B07EqJzhCl">学习优秀奖学金一等奖 ×2、二等奖 ×2；素质拓展奖学金 ×1</span>
+              </div>
+            </div>
+            <div class="panel honor" data-page-node-id="YSbzdFTRtvn4bvoDaZGVgQ">
+              <div class="badge" data-page-node-id="Ns6kis6xS8sdoisbXGFhW1">
+                <svg viewBox="0 0 24 24" aria-hidden="true" data-page-node-id="AZ2xaHumnyPaHWKe1eQHv2"><path d="M4.4 3.2h2.2v17.6H4.4z" data-page-node-id="KaXSj7Pxq8KwOnx4EpMnKK"/><path d="M7.6 4.2c3.2-1.5 6.4 1 9.6-.6v8c-3.2 1.6-6.4-.9-9.6.6V4.2Z" data-page-node-id="RE57sGpmGv1t3qddraEBdA"/></svg>
+              </div>
+              <div data-page-node-id="GzoC775YaPjqb3l9Q04wXM">
+                <b data-page-node-id="WMxf8AhIBFaHfjgl44AvlA">实践与团队经历</b>
+                <span data-page-node-id="rPGHSL4sgXanEPJY3hMKaz">暑期社会实践先进个人；江苏省第二十一届高校部足球比赛甲 B 组决赛第三名</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ 联系方式 ══════════ -->
+      <section class="view page" id="view-contact" aria-labelledby="t-contact" data-page-node-id="KvR8MKBnI0Lyv2uyhsaoYB">
+        <div class="page-inner" data-page-node-id="rYQNOfhpuKEVMaxavpHfsr">
+          <div class="page-head" data-page-node-id="a3d4sRp5gsIZHgu2Z6S4dI">
+            <div class="kicker" data-page-node-id="apeMaIUkKS8H9LHNgfVcf7">04 / Contact</div>
+            <h2 class="page-title" id="t-contact" data-page-node-id="4YtriyQC1oBV8bdBKeklFg">让想法继续向前。</h2>
+          </div>
+
+          <div class="contact-grid" data-page-node-id="1YktrLdy23o6JGccnzK228">
+            <div class="panel contact-main" data-page-node-id="ypWFRdcISCbVQIO41GmDXx">
+              <p class="body" data-page-node-id="xUc3GIOcLkdOhxEfACGH90">感谢浏览这份作品集。这里记录着项目实践与学习探索，也期待未来更多新的可能。如果对某个项目想了解更多细节，欢迎进一步联系。</p>
+              <div class="tag-row" data-page-node-id="Ehz4KNbRARC47Fnnl3aSA7">
+                <span class="tag" data-page-node-id="r7FvdaaQj14KkaNbgfJePn">项目细节</span>
+                <span class="tag" data-page-node-id="jHLEH2Esrv997gd7UA2WPs">竞赛材料</span>
+                <span class="tag" data-page-node-id="2hCgL398NSDEHWwLl2s9qL">技术交流</span>
+              </div>
+            </div>
+            <div class="contact-side" data-page-node-id="DNMEoubkVzgBCbsiX0g5xM">
+              <b data-page-node-id="QklGLhI7WrVr2pHegd8Nae">联系方式</b>
+              <span data-page-node-id="xQ9ZYi6pwgQivqkLS0wfjH">邮箱：1604154853@qq.com </span>
+              <span data-page-node-id="xQ9ZYi6pwgQivqkLS0wfjH">微信：18805166757 </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="proof" data-page-node-id="AJIcOzFMwlQ1M38POHZin6">
+      <p class="proof-cap" data-page-node-id="9ET5g8FA5ujWfOw7X9rfRE">在项目中实践的技术</p>
+      <div class="proof-logos" data-page-node-id="PZZBzS8sWYCas9oeWmCPnB">
+        <svg class="logo" data-lw="96.84" style="--lw:96.84" viewBox="0 0 96.84 35" aria-label="PyTorch" data-page-node-id="qu3jWGDJ2cmf02JKhYvjuO">
+          <text x="48.42" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="21.5" font-weight="600" textLength="90" lengthAdjust="spacingAndGlyphs" fill="#fff" data-page-node-id="1QJuGhk7RhMkpP89DSaG4D">PyTorch</text>
+        </svg>
+        <svg class="logo" data-lw="88.68" style="--lw:88.68" viewBox="0 0 88.68 35" aria-label="OpenCV" data-page-node-id="mpaHsyVfMxsnFKJhBXP9ko">
+          <text x="44.34" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="21.5" font-weight="600" textLength="82" lengthAdjust="spacingAndGlyphs" fill="#fff" data-page-node-id="n3FiZkQPOuG9Yag8FhPBp8">OpenCV</text>
+        </svg>
+        <svg class="logo" data-lw="67.29" style="--lw:67.29" viewBox="0 0 67.29 35" aria-label="ESP32" data-page-node-id="nSeQY2DRNJXlVKRQ5RDzyP">
+          <text x="33.6" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="21.5" font-weight="600" textLength="62" lengthAdjust="spacingAndGlyphs" fill="#fff" data-page-node-id="mlYlCxkL9e6R6biQqZeoMz">ESP32</text>
+        </svg>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 大图查看层：展示概念渲染 / 运行界面 / 证书等补充素材 -->
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="查看大图" aria-hidden="true">
+    <button type="button" class="lb-close" aria-label="关闭大图">×</button>
+    <img src="" alt="">
+    <div class="lb-cap"></div>
+  </div>
+</div>
+
+<script>
+/* ── 页面切换（hash 路由，点按钮整页切换，不是长滚动） ── */
+(function(){
+  var views = [].slice.call(document.querySelectorAll('.view'));
+  var navItems = [].slice.call(document.querySelectorAll('a[data-nav]'));
+  var menu = document.getElementById('menu');
+
+  function show(id){
+    var target = null;
+    views.forEach(function(v){
+      var on = (v.id === id);
+      v.classList.toggle('active', on);
+      if(on){ target = v; }
+    });
+    navItems.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('data-nav') === id);
+    });
+    if(menu){ menu.checked = false; }
+    if(target){ target.scrollTop = 0; }
+    try{ window.scrollTo(0,0); }catch(e){}
+  }
+
+  function route(){
+    var h = (location.hash || '').replace(/^#/, '');
+    var el = h ? document.getElementById(h) : null;
+    var ok = el && el.classList.contains('view');
+    show(ok ? h : 'view-home');
+  }
+
+  navItems.forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('data-nav');
+      if(!id){ return; }
+      e.preventDefault();
+      if(('#' + id) === location.hash){ route(); } else { location.hash = id; }
+    });
+  });
+
+  window.addEventListener('hashchange', route);
+  route();
+
+  /* 移动端汉堡：checkbox 为主，键盘可达性补充 */
+  var burger = document.querySelector('.burger');
+  if(burger && menu){
+    burger.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        menu.checked = !menu.checked;
+      }
+      if(e.key === 'Escape'){ menu.checked = false; }
+    });
+  }
+
+  /* 项目作品：列表 / 详情 切换 */
+  var tabs = [].slice.call(document.querySelectorAll('.w-item'));
+  var panels = [].slice.call(document.querySelectorAll('.wp'));
+  function selectProject(key, focus){
+    tabs.forEach(function(t){
+      var on = t.getAttribute('data-project') === key;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if(on && focus){ t.focus(); }
+    });
+    panels.forEach(function(p){
+      p.classList.toggle('active', p.id === 'wp-' + key);
+    });
+    var det = document.getElementById('work-detail');
+    if(det){ det.scrollTop = 0; }
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ selectProject(t.getAttribute('data-project'), false); });
+    t.addEventListener('keydown', function(e){
+      var i = tabs.indexOf(t), n = null;
+      if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){ n = tabs[(i + 1) % tabs.length]; }
+      if(e.key === 'ArrowUp'   || e.key === 'ArrowLeft'){  n = tabs[(i - 1 + tabs.length) % tabs.length]; }
+      if(n){ e.preventDefault(); selectProject(n.getAttribute('data-project'), true); }
+    });
+  });
+})();
+
+/* ── 大图查看（lightbox）：点击补充素材胶囊弹出大图 ── */
+(function(){
+  var lb = document.getElementById('lb');
+  if(!lb){ return; }
+  var img = lb.querySelector('img');
+  var cap = lb.querySelector('.lb-cap');
+  var closeBtn = lb.querySelector('.lb-close');
+  var lastFocus = null;
+
+  function open(src, caption, alt){
+    lastFocus = document.activeElement;
+    img.setAttribute('src', src);
+    img.setAttribute('alt', alt || caption || '');
+    cap.textContent = caption || '';
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+    closeBtn.focus();
+  }
+  function close(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    img.setAttribute('src','');
+    if(lastFocus && lastFocus.focus){ lastFocus.focus(); }
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('[data-lightbox]') : null;
+    if(btn){
+      e.preventDefault();
+      var src = btn.getAttribute('data-lightbox');
+      open(src, btn.getAttribute('data-caption'), btn.textContent.trim());
+      return;
+    }
+    /* 点击遮罩或关闭按钮 */
+    if(e.target === lb || e.target === lb.querySelector('img') || e.target.closest && e.target.closest('.lb-close')){
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && lb.classList.contains('open')){ close(); }
+  });
+})();
+
+/* ── 入场动效收尾：最后一个 logo 动画结束 或 2600ms 后移除 anim ── */
+(function(){
+  var root = document.documentElement;
+  if(!root.classList.contains('anim')){ return; }
+  var done = false;
+  function finish(){
+    if(done){ return; }
+    done = true;
+    root.classList.remove('anim');
+  }
+  var logos = document.querySelectorAll('.proof-logos .logo');
+  var last = logos[logos.length - 1];
+  if(last){ last.addEventListener('animationend', finish, { once:true }); }
+  setTimeout(finish, 2600);
+})();
+</script>
+</body>
+</html>
